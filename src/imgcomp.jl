@@ -68,78 +68,101 @@
 
 function compare_images(testfn::AbstractString, reffn::AbstractString; sigma = [1,1], eps = 0.02)
 
-  result = VisualTest(testfn, nothing, reffn, nothing, PROCESSING_ERROR, 1.0)
+    result = VisualTestResult(testfn, nothing, reffn, nothing, PROCESSING_ERROR, 1.0, nothing)
 
-  # load the test image... if we error, return immediately
-  try
-    result.testImage = Images.load(testfn)
-  catch err
-    result.err = err
-    return result
-  end
-
-  # load the ref image... if we error, return immediately
-  try
-    result.referenceImage = Images.load(reffn)
-  catch err
-    result.err = err
-    return result
-  end
-
-  # we loaded both images, now do the comparison
-  try
-
-    # info("Comparing $tmpfn to reference $reffn")
-  
-    # # load the reference image
-    # refimg = Images.load(reffn)
-
-    # run the comparison test... a difference will throw an error
-    # NOTE: sigma is a 2-length vector with x/y values for the number of pixels
-    #       to blur together when comparing images
-    result.diff = Images.test_approx_eq_sigma_eps(result.testImage, result.referenceImage, sigma, eps)
-
-    # we passed!
-    info("Reference image $reffn matches.  Difference: $diffpct")
-    
-    result.status = if result.diff == 0
-      EXACT_MATCH
-    else
-      CLOSE_MATCH
+    # load the test image... if we error, return immediately
+    try
+        result.testImage = Images.load(testfn)
+    catch err
+        result.err = err
+        return result
     end
 
-  catch err
-
-    result.err = err
-    result.status = DOES_NOT_MATCH
-
-    # HACK: this will fail if the Images error message changes
-    msg = split(err.msg)
-    if length(msg) > 2 && msg[1] == "Arrays" && msg[2] == "differ."
-      result.diff = parse(Float64, msg[end-2])
+    # load the ref image... if we error, return immediately
+    try
+        result.referenceImage = Images.load(reffn)
+    catch err
+        result.err = err
+        return result
     end
 
-    # warn("Image did not match reference image $reffn. err: $err")
-    # # showerror(Base.STDERR, err)
-    
-    # if isinteractive()
+    # we loaded both images, now do the comparison
+    try
 
-    #   # if we're in interactive mode, open a popup and give us a chance to examine the images
-    #   warn("Should we make this the new reference image?")
-    #   compareToReferenceImage(tmpfn, reffn)
-    #   # println("exited")
-    #   return
+        # info("Comparing $tmpfn to reference $reffn")
       
-    # else
+        # # load the reference image
+        # refimg = Images.load(reffn)
 
-    #   # if we rejected the image, or if we're in automated tests, throw the error
-    #   rethrow(err)
-    # end
+        # run the comparison test... a difference will throw an error
+        # NOTE: sigma is a 2-length vector with x/y values for the number of pixels
+        #       to blur together when comparing images
+        result.diff = Images.test_approx_eq_sigma_eps(result.testImage, result.referenceImage, sigma, eps)
 
-  end
+        # we passed!
+        info("Reference image $reffn matches.  Difference: $(result.diff)")
+        
+        result.status = if result.diff == 0
+          EXACT_MATCH
+        else
+          CLOSE_MATCH
+        end
 
-  result
+    catch err
+
+        warn("Got error: $err")
+        result.err = err
+        result.status = DOES_NOT_MATCH
+
+        # HACK: this will fail if the Images error message changes
+        if typeof(err) == ErrorException
+          msg = split(err.msg)
+          if length(msg) > 2 && msg[1] == "Arrays" && msg[2] == "differ."
+            result.diff = parse(Float64, msg[end-2])
+          end
+        end
+
+        # warn("Image did not match reference image $reffn. err: $err")
+        # # showerror(Base.STDERR, err)
+        
+        # if isinteractive()
+
+        #   # if we're in interactive mode, open a popup and give us a chance to examine the images
+        #   warn("Should we make this the new reference image?")
+        #   compareToReferenceImage(tmpfn, reffn)
+        #   # println("exited")
+        #   return
+          
+        # else
+
+        #   # if we rejected the image, or if we're in automated tests, throw the error
+        #   rethrow(err)
+        # end
+
+    end
+
+    result
 end
+
+success(result::VisualTestResult) = result.status in (EXACT_MATCH, CLOSE_MATCH)
+
+function compare_images_test(args...; popup=isinteractive(), kw...)
+    result = compare_images(args...; kw...)
+
+    if !success(result)
+        warn("Image did not match reference image $reffn. err: $err")
+
+        if popup
+            # open a popup and give us a chance to examine the images,
+            # then ask to replace the reference
+            warn("Should we make this the new reference image?")
+            replace_refimg_dialog(args...)
+        end
+    end
+
+    result
+end
+
 
 # function image_comparison_tests(pkg::Symbol; skip = [], debug = false, sigma = [1,1], eps = 1e-2)
 #   for i in 1:length(PlotExamples.examples)

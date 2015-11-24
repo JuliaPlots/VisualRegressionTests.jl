@@ -2,17 +2,47 @@ module VisualRegressionTests
 
 # include this first to help with crashing??
 try
-  @eval using Gtk
+    @eval using Gtk
 catch err
-  warn("Gtk not loaded. err: $err")
+    warn("Gtk not loaded. err: $err")
 end
 
-import Images, ImageMagick, FactCheck
+import Images, FactCheck
+
+try
+    @eval import ImageMagick
+catch
+    @eval function init_deps()
+        ccall((:MagickWandGenesis,libwand), Void, ())
+    end
+    @eval import ImageMagick
+end
+
+# ---------------------------------------------
+
+type VisualTest
+    testFilename::AbstractString
+    testFunction::Function
+    referenceFilename::AbstractString
+end
+
+function VisualTest(testFunction::Function, referenceFilename::AbstractString)
+    VisualTest(tempname() * ".png", testFunction, referenceFilename)
+end
+
+# ---------------------------------------------
+
+type VisualTests
+    referenceDirectory::AbstractString
+    tests::Vector{VisualTests}
+end
+
+# ---------------------------------------------
 
 
 @enum VisualTestStatus EXACT_MATCH CLOSE_MATCH DOES_NOT_MATCH PROCESSING_ERROR 
 
-type VisualTest
+type VisualTestResult
     testFilename::AbstractString
     testImage
     referenceFilename::AbstractString
@@ -21,6 +51,10 @@ type VisualTest
     diff::Float64
     err
 end
+
+
+# ---------------------------------------------
+
 
 export
     compare_images
