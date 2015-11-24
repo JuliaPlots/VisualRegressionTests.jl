@@ -146,7 +146,7 @@ function compare_images(testfn::AbstractString, reffn::AbstractString; sigma = [
     result
 end
 
-success(result::VisualTestResult) = result.status in (EXACT_MATCH, CLOSE_MATCH)
+Base.success(result::VisualTestResult) = result.status in (EXACT_MATCH, CLOSE_MATCH)
 
 function test_images(testfn::AbstractString, reffn::AbstractString; popup=isinteractive(), kw...)
     result = compare_images(testfn, reffn; kw...)
