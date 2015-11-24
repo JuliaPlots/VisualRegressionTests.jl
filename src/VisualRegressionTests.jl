@@ -1,6 +1,6 @@
 module VisualRegressionTests
 
-# include this first to help with crashing??
+# Gtk is optional since it's only used for the GUI popup
 try
     @eval using Gtk
 catch err
@@ -37,13 +37,6 @@ end
 
 # ---------------------------------------------
 
-# type VisualTests
-#     referenceDirectory::AbstractString
-#     tests::Vector{VisualTests}
-# end
-
-# ---------------------------------------------
-
 
 @enum VisualTestStatus EXACT_MATCH CLOSE_MATCH DOES_NOT_MATCH PROCESSING_ERROR 
 
@@ -57,6 +50,8 @@ type VisualTestResult
     err
 end
 
+
+Base.success(result::VisualTestResult) = result.status in (EXACT_MATCH, CLOSE_MATCH)
 
 # ---------------------------------------------
 
