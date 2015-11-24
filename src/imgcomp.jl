@@ -66,6 +66,8 @@
   # # TODO: the filename should be set by the user somehow
   # reffn = joinpath(refdir, "ref$idx.png")
 
+
+
 function compare_images(testfn::AbstractString, reffn::AbstractString; sigma = [1,1], eps = 0.02)
 
     result = VisualTestResult(testfn, nothing, reffn, nothing, PROCESSING_ERROR, 1.0, nothing)
@@ -146,21 +148,30 @@ end
 
 success(result::VisualTestResult) = result.status in (EXACT_MATCH, CLOSE_MATCH)
 
-function compare_images_test(args...; popup=isinteractive(), kw...)
-    result = compare_images(args...; kw...)
+function test_images(testfn::AbstractString, reffn::AbstractString; popup=isinteractive(), kw...)
+    result = compare_images(testfn, reffn; kw...)
 
     if !success(result)
-        warn("Image did not match reference image $reffn. err: $err")
+        warn("Image did not match reference image $reffn. err: $(result.err)")
 
         if popup
             # open a popup and give us a chance to examine the images,
             # then ask to replace the reference
             warn("Should we make this the new reference image?")
-            replace_refimg_dialog(args...)
+            replace_refimg_dialog(testfn, reffn)
         end
     end
 
     result
+end
+
+function test_images(visualtest::VisualTest; popup=isinteractive(), kw...)
+    visualtest.testFunction(visualtest.testFilename, visualtest.args...; visualtest.kw...)
+    test_images(visualtest.testFilename, visualtest.referenceFilename; popup=popup, kw...)
+end
+
+function test_images(visualtests::AbstractVector{VisualTest}; popup=isinteractive(), kw...)
+    VisualTestResult[test_images(vtest, popup=popup, kw...) for vtest in visualtests]
 end
 
 

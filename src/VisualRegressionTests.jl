@@ -22,20 +22,25 @@ end
 
 type VisualTest
     testFilename::AbstractString
+
+    # function taking (output_filename, args...; kw...) and writing to output_filename
     testFunction::Function
+    args
+    kw
+
     referenceFilename::AbstractString
 end
 
-function VisualTest(testFunction::Function, referenceFilename::AbstractString)
-    VisualTest(tempname() * ".png", testFunction, referenceFilename)
+function VisualTest(testFunction::Function, referenceFilename::AbstractString, args...; kw...)
+    VisualTest(tempname() * ".png", testFunction, args, kw, referenceFilename)
 end
 
 # ---------------------------------------------
 
-type VisualTests
-    referenceDirectory::AbstractString
-    tests::Vector{VisualTests}
-end
+# type VisualTests
+#     referenceDirectory::AbstractString
+#     tests::Vector{VisualTests}
+# end
 
 # ---------------------------------------------
 
@@ -57,7 +62,9 @@ end
 
 
 export
-    compare_images
+    compare_images,
+    test_images,
+    VisualTest
 
 include("gui.jl")
 include("imgcomp.jl")
