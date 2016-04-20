@@ -38,7 +38,7 @@ end
 # ---------------------------------------------
 
 
-@enum VisualTestStatus EXACT_MATCH CLOSE_MATCH DOES_NOT_MATCH PROCESSING_ERROR 
+@enum VisualTestStatus EXACT_MATCH CLOSE_MATCH DOES_NOT_MATCH PROCESSING_ERROR
 
 type VisualTestResult
     testFilename::AbstractString
@@ -59,7 +59,13 @@ Base.success(result::VisualTestResult) = result.status in (EXACT_MATCH, CLOSE_MA
 export
     compare_images,
     test_images,
-    VisualTest
+    VisualTest,
+    VisualTestStatus,
+    VisualTestResult,
+    EXACT_MATCH,
+    CLOSE_MATCH,
+    DOES_NOT_MATCH,
+    PROCESSING_ERROR
 
 include("gui.jl")
 include("imgcomp.jl")
