@@ -9,15 +9,6 @@ end
 
 import Images
 
-try
-    @eval import ImageMagick
-catch
-    @eval function init_deps()
-        ccall((:MagickWandGenesis,libwand), Void, ())
-    end
-    @eval import ImageMagick
-end
-
 # ---------------------------------------------
 
 type VisualTest
