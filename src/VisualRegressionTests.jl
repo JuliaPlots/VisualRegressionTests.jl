@@ -7,7 +7,7 @@ catch err
     warn("Gtk not loaded. err: $err")
 end
 
-import Images, FactCheck
+import Images
 
 try
     @eval import ImageMagick
