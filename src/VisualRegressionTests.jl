@@ -7,16 +7,7 @@ catch err
     warn("Gtk not loaded. err: $err")
 end
 
-import Images, FactCheck
-
-try
-    @eval import ImageMagick
-catch
-    @eval function init_deps()
-        ccall((:MagickWandGenesis,libwand), Void, ())
-    end
-    @eval import ImageMagick
-end
+import Images
 
 # ---------------------------------------------
 
