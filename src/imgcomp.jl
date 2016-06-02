@@ -29,7 +29,7 @@ function compare_images(testfn::AbstractString, reffn::AbstractString; sigma = [
 
         # we passed!
         info("Reference image $reffn matches.  Difference: $(result.diff)")
-        
+
         result.status = if result.diff == 0
           EXACT_MATCH
         else
@@ -58,7 +58,7 @@ end
 
 # -----------------------------------------------------
 
-function test_images(testfn::AbstractString, reffn::AbstractString; popup=isinteractive(), kw...)
+function test_images(testfn::AbstractString, reffn::AbstractString; popup=isinteractive(), newfn = reffn, kw...)
     result = compare_images(testfn, reffn; kw...)
 
     if !success(result)
@@ -68,7 +68,7 @@ function test_images(testfn::AbstractString, reffn::AbstractString; popup=isinte
             # open a popup and give us a chance to examine the images,
             # then ask to replace the reference
             warn("Should we make this the new reference image?")
-            replace_refimg_dialog(testfn, reffn)
+            replace_refimg_dialog(testfn, newfn)
         end
     end
 
@@ -83,4 +83,3 @@ end
 function test_images(visualtests::AbstractVector{VisualTest}; popup=isinteractive(), kw...)
     VisualTestResult[test_images(vtest, popup=popup, kw...) for vtest in visualtests]
 end
-
