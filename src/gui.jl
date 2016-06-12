@@ -15,12 +15,12 @@ function replace_refimg(tmpfn, reffn)
 end
 
 "Show a Gtk popup with both images and a confirmation whether we should replace the new image with the old one"
-function replace_refimg_dialog(tmpfn, reffn)
+function replace_refimg_dialog(tmpfn, reffn_old; reffn_new = reffn_old)
 
   # add the images
   imgbox = Gtk.GtkBoxLeaf(:h)
   push!(imgbox, image_widget(tmpfn))
-  push!(imgbox, image_widget(reffn))
+  push!(imgbox, image_widget(reffn_old))
 
   win = Gtk.GtkWindowLeaf("Should we make this the new reference image?")
   push!(win, Gtk.GtkFrameLeaf(imgbox))
@@ -29,7 +29,7 @@ function replace_refimg_dialog(tmpfn, reffn)
 
   # now ask the question
   if Gtk.ask_dialog("Should we make this the new reference image?", "No", "Yes")
-    replace_refimg(tmpfn, reffn)
+    replace_refimg(tmpfn, reffn_new)
   end
 
   destroy(win)

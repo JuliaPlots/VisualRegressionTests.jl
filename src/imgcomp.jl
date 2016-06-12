@@ -68,7 +68,7 @@ function test_images(testfn::AbstractString, reffn::AbstractString; popup=isinte
             # open a popup and give us a chance to examine the images,
             # then ask to replace the reference
             warn("Should we make this the new reference image?")
-            replace_refimg_dialog(testfn, newfn)
+            replace_refimg_dialog(testfn, reffn; reffn_new = newfn)
         end
     end
 
