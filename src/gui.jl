@@ -9,9 +9,9 @@ function image_widget(fn)
 end
 
 function replace_refimg(tmpfn, reffn)
-  cmd = `cp $tmpfn $reffn`
-  run(cmd)
-  info("Replaced reference image with: $cmd")
+  mkpath(reffn)
+  cp(tmpfn, reffn, remove_destination = true)
+  info("Replaced reference image $reffn with $tmpfn")
 end
 
 "Show a Gtk popup with both images and a confirmation whether we should replace the new image with the old one"
