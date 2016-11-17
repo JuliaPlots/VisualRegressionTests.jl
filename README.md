@@ -13,10 +13,10 @@ when the "correct" images change over time.
 Setup:
 ```
 julia> using VisualRegressionTests
-julia> using Plots; gadfly();
+julia> using Plots; gr();
 ```
 
-Our test function.  Make a scatter plot using the Gadfly backend, and save a png to the location given.
+Our test function.  Make a scatter plot using the GR backend, and save a png to the location given.
 ```
 julia> func = fn -> begin
            scatter(rand(100), size=(300,400))
