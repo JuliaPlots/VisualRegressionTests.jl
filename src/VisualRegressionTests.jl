@@ -4,14 +4,14 @@ module VisualRegressionTests
 try
     @eval using Gtk
 catch err
-    warn("Gtk not loaded. err: $err")
+    @warn "Gtk not loaded. err: $err"
 end
 
 import Images
 
 # ---------------------------------------------
 
-type VisualTest
+struct VisualTest
     testFilename::AbstractString
 
     # function taking (output_filename, args...; kw...) and writing to output_filename
@@ -31,7 +31,7 @@ end
 
 @enum VisualTestStatus EXACT_MATCH CLOSE_MATCH DOES_NOT_MATCH PROCESSING_ERROR
 
-type VisualTestResult
+struct VisualTestResult
     testFilename::AbstractString
     testImage
     referenceFilename::AbstractString
