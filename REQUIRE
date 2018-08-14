@@ -1,6 +1,6 @@
-julia 0.5
-
-Images
+julia 0.7
+FileIO 1.0.1
+ColorTypes 0.7.3
 @windows ImageMagick
 @linux ImageMagick
 @osx QuartzImageIO

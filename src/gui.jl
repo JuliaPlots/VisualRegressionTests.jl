@@ -1,4 +1,3 @@
-
 function image_widget(fn)
     img = Gtk.GtkImageLeaf(fn)
     vbox = Gtk.GtkBoxLeaf(:v)
@@ -11,6 +10,8 @@ end
 function replace_refimg(tmpfn, reffn)
     try
         mkpath(reffn)
+    catch
+      # skip
     end
     cp(tmpfn, reffn, remove_destination = true)
     info("Replaced reference image $reffn with $tmpfn")
