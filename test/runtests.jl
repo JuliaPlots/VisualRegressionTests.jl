@@ -1,16 +1,16 @@
 using VisualRegressionTests
-using Base.Test
+using Test
 
 # load an image for testing
-import Images, TestImages
+import FileIO, TestImages
 img = TestImages.testimage("cameraman")
 
 # save a temporary copy
 reffn = tempname() * ".png"
-Images.save(reffn, img)
+FileIO.save(reffn, img)
 
 # this is the test function, which saves an image to the given location
-func = fn -> Images.save(fn, img)
+func = fn -> FileIO.save(fn, img)
 
 # do the test
 result = test_images(VisualTest(func, reffn))
