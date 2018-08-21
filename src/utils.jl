@@ -1,8 +1,7 @@
 # a few utility functions copied/adapted from Images.jl
 
 "blur images `A` and `B` with `sigma` and then compute a difference"
-function blurdiff(A::AbstractArray{T,N}, B::AbstractArray{T,N},
-                  sigma::NTuple{N,T}) where {T<:Real,N<:Integer}
+function blurdiff(A::AbstractArray, B::AbstractArray, sigma)
     # make sure arrays have the same size
     if size(A) != size(B)
         newsize = map(max, size(A), size(B))
@@ -17,6 +16,7 @@ function blurdiff(A::AbstractArray{T,N}, B::AbstractArray{T,N},
     # kern = KernelFactors.IIRGaussian(sigma)
     # Af = imfilter(A, kern, NA())
     # Bf = imfilter(B, kern, NA())
+    Af = A; Bf = B
     d = sad(Af, Bf)
     diffscale = max(maxabsfinite(A), maxabsfinite(B))
     diffpct = d / (length(Af) * diffscale)
@@ -27,7 +27,7 @@ end
 sad(A::AbstractArray, B::AbstractArray) = sumdiff(abs, A, B)
 
 function sumdiff(f, A::AbstractArray, B::AbstractArray)
-    indices(A) == indices(B) || throw(DimensionMismatch("A and B must have the same indices"))
+    axes(A) == axes(B) || throw(DimensionMismatch("A and B must have the same indices"))
     T = promote_type(difftype(eltype(A)), difftype(eltype(B)))
     s = zero(accum(eltype(T)))
     for (a, b) in zip(A, B)
@@ -45,8 +45,8 @@ difftype(::Type{CV}, ::Type{T}) where {CV<:RGBA,T<:Real} = RGBA{Float32}
 difftype(::Type{CV}, ::Type{Float64}) where {CV<:RGBA} = RGBA{Float64}
 difftype(::Type{CV}, ::Type{T}) where {CV<:BGRA,T<:Real} = BGRA{Float32}
 difftype(::Type{CV}, ::Type{Float64}) where {CV<:BGRA} = BGRA{Float64}
-# difftype(::Type{CV}, ::Type{T}) where {CV<:AbstractGray,T<:Real} = Gray{Float32}
-# difftype(::Type{CV}, ::Type{Float64}) where {CV<:AbstractGray} = Gray{Float64}
+difftype(::Type{CV}, ::Type{T}) where {CV<:AbstractGray,T<:Real} = Gray{Float32}
+difftype(::Type{CV}, ::Type{Float64}) where {CV<:AbstractGray} = Gray{Float64}
 difftype(::Type{CV}, ::Type{T}) where {CV<:AbstractRGB,T<:Real} = RGB{Float32}
 difftype(::Type{CV}, ::Type{Float64}) where {CV<:AbstractRGB} = RGB{Float64}
 

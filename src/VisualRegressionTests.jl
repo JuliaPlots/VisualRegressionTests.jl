@@ -9,6 +9,7 @@ end
 
 using FileIO
 using ColorTypes
+using ColorVectorSpace
 
 # ---------------------------------------------
 
@@ -29,11 +30,11 @@ end
 
 @enum VisualTestStatus EXACT_MATCH CLOSE_MATCH DOES_NOT_MATCH PROCESSING_ERROR
 
-struct VisualTestResult
+mutable struct VisualTestResult
     testFilename::AbstractString
-    testImage::AbstractArray
+    testImage
     refFilename::AbstractString
-    refImage::AbstractArray
+    refImage
     status::VisualTestStatus
     diff::Float64
     err
