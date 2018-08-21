@@ -13,7 +13,7 @@ function replace_refimg(tmpfn, reffn)
     catch
       # skip
     end
-    cp(tmpfn, reffn, remove_destination = true)
+    cp(tmpfn, reffn, force = true)
     @info "Replaced reference image $reffn with $tmpfn"
 end
 
