@@ -7,45 +7,43 @@ catch err
     @warn "Gtk not loaded. err: $err"
 end
 
-import Images
+using FileIO
+using ColorTypes
+using ColorVectorSpace
+using ImageFiltering
 
 # ---------------------------------------------
 
 struct VisualTest
     testFilename::AbstractString
-
-    # function taking (output_filename, args...; kw...) and writing to output_filename
-    testFunction::Function
+    testFunction::Function # function taking (output_filename, args...; kw...) and writing to output_filename
     args
     kw
 
-    referenceFilename::AbstractString
+    refFilename::AbstractString
 end
 
-function VisualTest(testFunction::Function, referenceFilename::AbstractString, args...; kw...)
-    VisualTest(tempname() * ".png", testFunction, args, kw, referenceFilename)
+function VisualTest(testFunction::Function, refFilename::AbstractString, args...; kw...)
+    VisualTest(tempname() * ".png", testFunction, args, kw, refFilename)
 end
 
 # ---------------------------------------------
 
-
 @enum VisualTestStatus EXACT_MATCH CLOSE_MATCH DOES_NOT_MATCH PROCESSING_ERROR
 
-struct VisualTestResult
+mutable struct VisualTestResult
     testFilename::AbstractString
     testImage
-    referenceFilename::AbstractString
-    referenceImage
+    refFilename::AbstractString
+    refImage
     status::VisualTestStatus
     diff::Float64
     err
 end
 
-
 Base.success(result::VisualTestResult) = result.status in (EXACT_MATCH, CLOSE_MATCH)
 
 # ---------------------------------------------
-
 
 export
     compare_images,
@@ -58,7 +56,8 @@ export
     DOES_NOT_MATCH,
     PROCESSING_ERROR
 
-include("gui.jl")
+include("utils.jl")
 include("imgcomp.jl")
+include("gui.jl")
 
 end # module
