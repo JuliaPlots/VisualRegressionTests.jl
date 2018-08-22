@@ -5,10 +5,14 @@ os:
   - osx
 julia:
   - 0.7
-  - 1.0
   - nightly
 notifications:
   email: true
+matrix:
+  allow_failures:
+    - julia: nightly
+  fast_finish: true
+
 # uncomment the following lines to override the default test script
 #script:
 #  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
