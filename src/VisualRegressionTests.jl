@@ -10,6 +10,7 @@ end
 using FileIO
 using ColorTypes
 using ColorVectorSpace
+using ImageFiltering
 
 # ---------------------------------------------
 

@@ -13,10 +13,9 @@ function blurdiff(A::AbstractArray, B::AbstractArray, sigma)
         end
     end
 
-    # kern = KernelFactors.IIRGaussian(sigma)
-    # Af = imfilter(A, kern, NA())
-    # Bf = imfilter(B, kern, NA())
-    Af = A; Bf = B
+    kern = KernelFactors.IIRGaussian(sigma)
+    Af = imfilter(A, kern, NA())
+    Bf = imfilter(B, kern, NA())
     d = sad(Af, Bf)
     diffscale = max(maxabsfinite(A), maxabsfinite(B))
     diffpct = d / (length(Af) * diffscale)
