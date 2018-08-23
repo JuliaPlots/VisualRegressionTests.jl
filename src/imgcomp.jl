@@ -16,7 +16,7 @@ function compare_images(testfn::AbstractString, reffn::AbstractString; sigma = (
 
     if result.diff > tol
         result.status = DOES_NOT_MATCH
-        result.err = "Images differ.  Difference: $diffpct  tolerance: $tol"
+        result.err = "Images differ.  Difference: $(result.diff)  tolerance: $tol"
     else
         @info "Reference image $reffn matches.  Difference: $(result.diff)"
         result.status = (result.diff == 0) ? EXACT_MATCH : CLOSE_MATCH
