@@ -1,6 +1,6 @@
 module VisualRegressionTests
 
-using Gtk
+using Requires
 using FileIO
 using ColorTypes
 using ColorVectorSpace
@@ -52,6 +52,8 @@ export
 
 include("utils.jl")
 include("imgcomp.jl")
-include("gui.jl")
+function __init__()
+    @require Gtk = "4c0ca9eb-093a-5379-98c5-f87ac0bbbf44" include("gui.jl")
+end
 
 end # module
