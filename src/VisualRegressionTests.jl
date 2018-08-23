@@ -1,12 +1,6 @@
 module VisualRegressionTests
 
-# Gtk is optional since it's only used for the GUI popup
-try
-    @eval using Gtk
-catch err
-    @warn "Gtk not loaded. err: $err"
-end
-
+using Gtk
 using FileIO
 using ColorTypes
 using ColorVectorSpace
