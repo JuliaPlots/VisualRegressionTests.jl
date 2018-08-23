@@ -6,3 +6,4 @@ ImageFiltering 0.4.1
 @windows ImageMagick
 @linux ImageMagick
 @osx QuartzImageIO
+Requires
