@@ -6,10 +6,10 @@ function blurdiff(A::AbstractArray, B::AbstractArray, sigma)
     if size(A) != size(B)
         newsize = map(max, size(A), size(B))
         if size(A) != newsize
-            A = copy!(zeros(eltype(A), newsize...), A)
+            A = copyto!(zeros(eltype(A), newsize...), A)
         end
         if size(B) != newsize
-            B = copy!(zeros(eltype(B), newsize...), B)
+            B = copyto!(zeros(eltype(B), newsize...), B)
         end
     end
 
