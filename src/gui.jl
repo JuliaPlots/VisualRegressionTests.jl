@@ -27,7 +27,7 @@ function replace_refimg_dialog(tmpfn, reffn_old; reffn_new = reffn_old)
     win = Gtk.GtkWindowLeaf("Should we make this the new reference image?")
     push!(win, Gtk.GtkFrameLeaf(imgbox))
 
-    showall(win)
+    show(win)
 
     # now ask the question
     if Gtk.ask_dialog("Should we make this the new reference image?", "No", "Yes")
