@@ -40,16 +40,16 @@ The second macro is for plots generated with Plots.jl:
 @plottest plotfun refimg popup tol
 ```
 
-where the only difference is in the `plotfun`. In this case, the function should take no argument, and produce
-a plot, without saving it. The macro will take care of saving the image as a PNG in the disk. Alternatively,
-the `plotfun` argument can be an entire sequence of commands (i.e. a function body):
+where the only difference is in the `plotfun` function. In this case, the function should take no argument,
+and produce a plot, without saving it. The macro will take care of saving the image as a PNG in the disk.
+Alternatively, the `plotfun` argument can be an entire sequence of commands (i.e. a function body):
 
 ```julia
 @plottest begin
   plot([1.,2.,3.])
   plot!([3.,2.,1.])
   # ...
-end
+end true 0.02
 ```
 
 ## Example GUI popup:
