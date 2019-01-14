@@ -49,7 +49,8 @@ export
     CLOSE_MATCH,
     DOES_NOT_MATCH,
     PROCESSING_ERROR,
-    @visualtest
+    @visualtest,
+    @plottest
 
 include("utils.jl")
 include("imgcomp.jl")
