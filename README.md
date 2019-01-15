@@ -8,6 +8,8 @@ when the "correct" images change over time.
 
 [![Build Status](https://travis-ci.org/tbreloff/VisualRegressionTests.jl.svg?branch=master)](https://travis-ci.org/tbreloff/VisualRegressionTests.jl)
 
+#### Author: Thomas Breloff (@tbreloff)
+
 ## Usage:
 
 Two macros are provided that can be used to perform visual regression. The first macro is for general visual
