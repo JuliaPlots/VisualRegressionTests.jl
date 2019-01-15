@@ -48,10 +48,13 @@ export
     EXACT_MATCH,
     CLOSE_MATCH,
     DOES_NOT_MATCH,
-    PROCESSING_ERROR
+    PROCESSING_ERROR,
+    @visualtest,
+    @plottest
 
 include("utils.jl")
 include("imgcomp.jl")
+include("macros.jl")
 function __init__()
     @require Gtk = "4c0ca9eb-093a-5379-98c5-f87ac0bbbf44" include("gui.jl")
 end
