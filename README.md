@@ -6,9 +6,9 @@ Gtk GUI window showing a side-by-side comparison of the test and reference image
 the reference image with the test image. This allows for straightforward regression testing of image data, even
 when the "correct" images change over time.
 
-[![Build Status](https://travis-ci.org/tbreloff/VisualRegressionTests.jl.svg?branch=master)](https://travis-ci.org/tbreloff/VisualRegressionTests.jl)
-
 #### Author: Thomas Breloff (@tbreloff)
+
+[![Build Status](https://travis-ci.org/tbreloff/VisualRegressionTests.jl.svg?branch=master)](https://travis-ci.org/tbreloff/VisualRegressionTests.jl)
 
 ## Usage:
 
