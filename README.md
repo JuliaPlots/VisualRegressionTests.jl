@@ -51,7 +51,7 @@ Alternatively, the `plotfun` argument can be an entire sequence of commands (i.e
   plot([1.,2.,3.])
   plot!([3.,2.,1.])
   # ...
-end true 0.02
+end "foo.png"
 ```
 
 ## Example GUI popup:
