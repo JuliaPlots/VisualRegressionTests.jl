@@ -1,12 +1,7 @@
-using VisualRegressionTests
-using Pkg, Test, Plots
+using Gtk, Plots, Test, VisualRegressionTests
 
 # popup on local machine only
-istravis = "TRAVIS" ∈ keys(ENV)
-if !istravis
-  Pkg.add("Gtk")
-  using Gtk
-end
+istravis = get(ENV, "CI", "false") == "true"
 
 # load an image for testing
 import FileIO, TestImages
