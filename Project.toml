@@ -13,7 +13,7 @@ QuartzImageIO = "dca85d43-d64c-5e67-8c65-017450d5d020"
 Requires = "ae029012-a4dd-5104-9daa-d747884805df"
 
 [compat]
-ColorTypes = "0.7, 0.8, 0.9, 0.10"
+ColorTypes = "0.7, 0.8, 0.9, 0.10, 0.11"
 ColorVectorSpace = "0.6, 0.7, 0.8"
 FileIO = "1"
 ImageFiltering = "0.4, 0.5, 0.6"
