@@ -25,21 +25,3 @@ function blurdiff(A::AbstractArray, B::AbstractArray, sigma)
 
     diffpct
 end
-
-difftype(::Type{T}) where {T<:Integer} = Int
-difftype(::Type{T}) where {T<:Real} = Float32
-difftype(::Type{Float64}) = Float64
-difftype(::Type{CV}) where {CV<:Colorant} = difftype(CV, eltype(CV))
-difftype(::Type{CV}, ::Type{T}) where {CV<:RGBA,T<:Real} = RGBA{Float32}
-difftype(::Type{CV}, ::Type{Float64}) where {CV<:RGBA} = RGBA{Float64}
-difftype(::Type{CV}, ::Type{T}) where {CV<:BGRA,T<:Real} = BGRA{Float32}
-difftype(::Type{CV}, ::Type{Float64}) where {CV<:BGRA} = BGRA{Float64}
-difftype(::Type{CV}, ::Type{T}) where {CV<:AbstractGray,T<:Real} = Gray{Float32}
-difftype(::Type{CV}, ::Type{Float64}) where {CV<:AbstractGray} = Gray{Float64}
-difftype(::Type{CV}, ::Type{T}) where {CV<:AbstractRGB,T<:Real} = RGB{Float32}
-difftype(::Type{CV}, ::Type{Float64}) where {CV<:AbstractRGB} = RGB{Float64}
-
-accum(::Type{T}) where {T<:Integer} = Int
-accum(::Type{Float32})    = Float32
-accum(::Type{T}) where {T<:Real} = Float64
-accum(::Type{C}) where {C<:Colorant} = base_colorant_type(C){accum(eltype(C))}
