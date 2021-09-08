@@ -14,9 +14,9 @@ Requires = "ae029012-a4dd-5104-9daa-d747884805df"
 
 [compat]
 FileIO = "1"
-ImageBase = "^0"
-ImageDistances = "^0"
-ImageFiltering = "^0"
+ImageBase = "0"
+ImageDistances = "0"
+ImageFiltering = "0"
 ImageMagick = "0.7, 1"
 QuartzImageIO = "0.7"
 Requires = "1"
