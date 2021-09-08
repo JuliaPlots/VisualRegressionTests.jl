@@ -2,8 +2,8 @@ module VisualRegressionTests
 
 using Requires
 using FileIO
-using ColorTypes
-using ColorVectorSpace
+using ImageBase
+using ImageDistances
 using ImageFiltering
 
 # ---------------------------------------------
