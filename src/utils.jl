@@ -2,6 +2,7 @@
 
 # github.com/JuliaGraphics/ColorVectorSpace.jl#abs-and-abs2
 _abs(c::CT) where CT<:Color = mapreducec(v->abs(float(v)), +, zero(eltype(CT)), c)
+_abs(c) = mapreducec(v->abs(float(v)), +, 0, c)
 
 "blur images `A` and `B` with `sigma` and then compute a difference"
 function blurdiff(A::AbstractArray, B::AbstractArray, sigma)
