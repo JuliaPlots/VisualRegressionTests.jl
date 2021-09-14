@@ -1,7 +1,7 @@
 name = "VisualRegressionTests"
 uuid = "34922c18-7c2a-561c-bac1-01e79b2c4c92"
 author = "Thomas Breloff"
-version = "1.1.0"
+version = "1.1.1"
 
 [deps]
 FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
