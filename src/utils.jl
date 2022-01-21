@@ -21,7 +21,7 @@ function blurdiff(A::AbstractArray, B::AbstractArray, sigma)
     Af = imfilter(A, kern, NA())
     Bf = imfilter(B, kern, NA())
     d = sad(Af, Bf)
-    diffscale = max(_abs(maximum_finite(abs, A)), _abs(maximum_finite(abs, B)))
+    diffscale = max(_abs(maxabsfinite(A)), _abs(maxabsfinite(B)))
     diffpct = d / (length(Af) * diffscale)
 
     diffpct
