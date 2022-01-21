@@ -30,8 +30,14 @@ function replace_refimg_dialog(tmpfn, reffn_old; reffn_new = reffn_old)
     Gtk.showall(win)
 
     # now ask the question
-    if Gtk.ask_dialog("Should we make this the new reference image?", "No", "Yes")
-        replace_refimg(tmpfn, reffn_new)
+    t = @async begin
+        state = Gtk.ask_dialog("Should we make this the new reference image?", "No", "Yes")
+        if state
+            replace_refimg(tmpfn, reffn_new)
+        end
+    end
+    if !isinteractive()
+        wait(t)
     end
 
     Gtk.destroy(win)

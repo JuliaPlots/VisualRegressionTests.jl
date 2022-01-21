@@ -1,4 +1,4 @@
-macro visualtest(testfun, refname, popup=true, tol=0.02)
+macro visualtest(testfun, refname, popup=true, tol=1e-3)
   esc(quote
     testFilename = tempname()*".png"
     $testfun(testFilename)
@@ -6,7 +6,7 @@ macro visualtest(testfun, refname, popup=true, tol=0.02)
   end)
 end
 
-macro plottest(plotfun, refname, popup=true, tol=0.02)
+macro plottest(plotfun, refname, popup=true, tol=1e-3)
   esc(quote
     testFilename = tempname()*".png"
     if $plotfun isa Function
