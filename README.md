@@ -57,3 +57,7 @@ end "foo.png"
 ## Example GUI popup:
 
 ![popup](popup.png)
+
+## Bypass GUI popup and replace reference files automatically
+
+Set the environment variable `VISUAL_REGRESSION_TESTS_AUTO` to `true`.
