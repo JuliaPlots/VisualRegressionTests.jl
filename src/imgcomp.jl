@@ -26,14 +26,17 @@ function compare_images(testfn::AbstractString, reffn::AbstractString; sigma = (
     result
 end
 
+auto() = get(ENV, "VISUAL_REGRESSION_TESTS_AUTO", "false") == "true"
 
-function test_images(testfn::AbstractString, reffn::AbstractString; popup=isinteractive(), newfn = reffn, kw...)
+function test_images(testfn::AbstractString, reffn::AbstractString; popup=isinteractive(), auto=auto(), newfn = reffn, kw...)
     result = compare_images(testfn, reffn; kw...)
 
     if !success(result)
         @warn "Image did not match reference image $reffn. err: $(result.err)"
 
-        if popup
+        if auto  # auto-magically override `newfn` with `testfn`, knowing what we are doing
+            replace_refimg(testfn, newfn)
+        elseif popup
             # open a popup and give us a chance to examine the images,
             # then ask to replace the reference
             @warn "Should we make this the new reference image?"
