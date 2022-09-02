@@ -1,7 +1,7 @@
 using Gtk, Plots, Test, VisualRegressionTests
 
 # popup on local machine only
-istravis = get(ENV, "CI", "false") == "true"
+isci() = get(ENV, "CI", "false") == "true"
 
 # load an image for testing
 import FileIO, TestImages
@@ -24,16 +24,16 @@ func = fn -> FileIO.save(fn, img)
   end
 
   @testset "Macros" begin
-    @visualtest func "VisualTest.png" !istravis
+    @visualtest func "VisualTest.png" !isci()
 
-    @plottest plot([1.,2.,3.]) "PlotTest.png" !istravis
+    @plottest plot([1.,2.,3.]) "PlotTest.png" !isci()
 
     @plottest begin
       plot([1.,2.,3.])
       plot!([3.,2.,1.])
-    end "MorePlotTest.png" !istravis
+    end "MorePlotTest.png" !isci()
 
     plotit() = plot([1.,2.,3.])
-    @plottest plotit "FuncPlotTest.png" !istravis
+    @plottest plotit "FuncPlotTest.png" !isci()
   end
 end
