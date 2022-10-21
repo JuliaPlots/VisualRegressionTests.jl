@@ -60,4 +60,8 @@ end "foo.png"
 
 ## Bypass GUI popup and replace reference files automatically
 
-Set the environment variable `VISUAL_REGRESSION_TESTS_AUTO` to `true`.
+Set the environment variable `VISUAL_REGRESSION_TESTS_AUTO` to `true`:
+```julia
+julia> ENV["VISUAL_REGRESSION_TESTS_AUTO"] = true;
+pkg> test Plots
+```
