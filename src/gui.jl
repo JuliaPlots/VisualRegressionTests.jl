@@ -7,16 +7,6 @@ function image_widget(fn)
     vbox
 end
 
-function replace_refimg(tmpfn, reffn)
-    try
-        mkpath(reffn)
-    catch
-      # skip
-    end
-    cp(tmpfn, reffn, force = true)
-    @info "Replaced reference image $reffn with $tmpfn"
-end
-
 "Show a Gtk popup with both images and a confirmation whether we should replace the new image with the old one"
 function replace_refimg_dialog(tmpfn, reffn_old; reffn_new = reffn_old)
     # add the images

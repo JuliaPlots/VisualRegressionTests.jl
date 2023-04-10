@@ -26,3 +26,13 @@ function blurdiff(A::AbstractArray, B::AbstractArray, sigma)
 
     diffpct
 end
+
+function replace_refimg(tmpfn, reffn)
+    try
+        mkpath(reffn)
+    catch
+      # skip
+    end
+    cp(tmpfn, reffn, force = true)
+    @info "Replaced reference image $reffn with $tmpfn"
+end
