@@ -37,6 +37,10 @@ function test_images(testfn::AbstractString, reffn::AbstractString; popup=isinte
         if auto  # auto-magically override `newfn` with `testfn`, knowing what we are doing
             replace_refimg(testfn, newfn)
         elseif popup
+            if !isdefined(Main, :Gtk)
+                @warn "Cannot prompt for image replacement without Gtk.jl"
+                return result
+            end
             # open a popup and give us a chance to examine the images,
             # then ask to replace the reference
             @warn "Should we make this the new reference image?"
