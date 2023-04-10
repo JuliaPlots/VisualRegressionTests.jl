@@ -26,7 +26,7 @@ func = fn -> FileIO.save(fn, img)
   @testset "Macros" begin
     @visualtest func "VisualTest.png" !isci()
 
-    @plottest plot([1.,2.,3.]) "PlotTest.png" !isci() 1e-2
+    @plottest plot([1.,2.,3.]) "PlotTest.png" !isci() 5e-3
 
     @plottest begin
       plot([1.,2.,3.])
