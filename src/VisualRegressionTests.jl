@@ -6,6 +6,7 @@ using ImageBase
 using ImageDistances
 using ImageFiltering
 
+const path = mktempdir()
 # ---------------------------------------------
 
 struct VisualTest
@@ -18,7 +19,7 @@ struct VisualTest
 end
 
 function VisualTest(testFunction::Function, refFilename::AbstractString, args...; kw...)
-    VisualTest(tempname() * ".png", testFunction, args, kw, refFilename)
+    VisualTest(joinpath(path, tempname() * ".png"), testFunction, args, kw, refFilename)
 end
 
 # ---------------------------------------------
