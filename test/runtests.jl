@@ -8,7 +8,7 @@ import FileIO, TestImages
 img = TestImages.testimage("cameraman")
 
 # save a temporary copy
-reffn = joinpath(path, tempname() * ".png")
+reffn = joinpath(VisualRegressionTests.path, tempname() * ".png")
 FileIO.save(reffn, img)
 
 # this is the test function, which saves an image to the given location
