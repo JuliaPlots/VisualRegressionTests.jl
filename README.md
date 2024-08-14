@@ -8,7 +8,8 @@ when the "correct" images change over time.
 
 #### Author: Thomas Breloff (@tbreloff)
 
-[![Build Status](https://travis-ci.org/tbreloff/VisualRegressionTests.jl.svg?branch=master)](https://travis-ci.org/tbreloff/VisualRegressionTests.jl)
+![CI](https://github.com/JuliaPlots/VisualRegressionTests.jl/actions/workflows/ci.yml/badge.svg)
+
 
 ## Usage:
 
