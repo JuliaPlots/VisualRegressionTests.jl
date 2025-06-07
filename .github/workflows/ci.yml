@@ -16,8 +16,8 @@ jobs:
   CI:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     env:
-      GKS_ENCODING: "utf8"
-      GKSwstype: "nul"
+      GKS_ENCODING: utf8
+      GKSwstype: nul
 
     name: Julia ${{ matrix.version }} - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
@@ -52,9 +52,15 @@ jobs:
 
       - uses: julia-actions/julia-buildpkg@latest
 
-      - uses: julia-actions/julia-runtest@latest
-        with:
-          prefix: ${{ matrix.prefix }}  # for `xvfb-run`
+      - name: Testing VisualRegressionTests
+        run: |
+          cmd=(julia --project=@. --color=yes --depwarn=yes)
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            cmd=(xvfb-run ${cmd[@]})
+          fi
+          echo ${cmd[@]}
+          ${cmd[@]} -e 'using Pkg
+          Pkg.test("VisualRegressionTests"; coverage=true)'
 
       - uses: julia-actions/julia-processcoverage@latest
       - uses: codecov/codecov-action@v5
