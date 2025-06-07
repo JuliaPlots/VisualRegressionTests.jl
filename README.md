@@ -9,7 +9,7 @@ when the "correct" images change over time.
 #### Author: Thomas Breloff (@tbreloff)
 
 ![CI](https://github.com/JuliaPlots/VisualRegressionTests.jl/actions/workflows/ci.yml/badge.svg)
-[![Coverage Status](https://codecov.io/gh/JuliaPlots/VisualRegressionTests.jl/branch/master/graphs/badge.svg)](https://github.com/JuliaPlots/VisualRegressionTests.jl/actions/workflows/ci.yml/badge.svg](https://app.codecov.io/gh/JuliaPlots/VisualRegressionTests.jl)
+[![Coverage Status](https://codecov.io/gh/JuliaPlots/VisualRegressionTests.jl/branch/master/graphs/badge.svg)](https://app.codecov.io/gh/JuliaPlots/VisualRegressionTests.jl)
 
 ## Usage:
 
