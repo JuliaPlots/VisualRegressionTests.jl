@@ -21,30 +21,34 @@ jobs:
 
     name: Julia ${{ matrix.version }} - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.version == 'nightly' }}
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: false
       matrix:
         version:
-          - '1.6'  # lowest declared compat in `Project.toml`
-          - '1'
-          # - 'nightly'
-        os: [ubuntu-latest, windows-latest, macos-13]
-        arch:
-          - x64
-          # - x86
+          - 'lts'  # minimal declared julia compat in `Project.toml`
+          - '1'  # latest stable
+        experimental:
+          - false
+        os: [ubuntu-latest, windows-latest]
+        arch: [x64]
         include:
           - os: ubuntu-latest
-            prefix: xvfb-run  # julia-actions/julia-runtest/blob/master/README.md
+            experimental: true
+            version: 'pre'  # upcoming julia version (`alpha`, `beta` or `rc`)
+          - os: macos-latest
+            arch: aarch64
+            version: '1'
+            experimental: false
 
     steps:
 
       # Setup environment
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: julia-actions/setup-julia@latest
         with:
           version: ${{ matrix.version }}
-      - uses: julia-actions/cache@v1
+      - uses: julia-actions/cache@v2
 
       - uses: julia-actions/julia-buildpkg@latest
 
@@ -52,10 +56,12 @@ jobs:
         with:
           prefix: ${{ matrix.prefix }}  # for `xvfb-run`
 
-      # - name: Codecov
-      #   uses: julia-actions/julia-uploadcodecov@latest
-      #   env:
-      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - uses: julia-actions/julia-processcoverage@latest
+      - uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
+          file: lcov.info
 
   Skip:
     if: "contains(github.event.head_commit.message, '[skip ci]')"

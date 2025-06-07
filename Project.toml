@@ -18,13 +18,4 @@ ImageDistances = "0.2"
 ImageFiltering = "0.4 - 0.7"
 ImageMagick = "0.7, 1"
 Requires = "1"
-julia = "1.6"
-
-[extras]
-Gtk = "4c0ca9eb-093a-5379-98c5-f87ac0bbbf44"
-Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
-Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
-TestImages = "5e47fb64-e119-507b-a336-dd2b206d9990"
-
-[targets]
-test = ["Gtk", "Plots", "Test", "TestImages"]
+julia = "1.10"

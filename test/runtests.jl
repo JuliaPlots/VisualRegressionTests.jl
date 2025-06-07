@@ -1,3 +1,6 @@
+using Pkg
+Pkg.status(; outdated = true, mode = Pkg.PKGMODE_MANIFEST)
+
 using Gtk, Plots, Test, VisualRegressionTests
 
 # popup on local machine only
